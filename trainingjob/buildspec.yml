@@ -9,6 +9,9 @@ phases:
   build:
     commands:
       - echo "Running training.py"
+      - echo $role
+      - echo ${role}
+      - echo "${role}""
       - python3 trainingjob/training.py $role $bucket $prefix $region $account
   post_build:
     commands:
