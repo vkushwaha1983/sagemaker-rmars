@@ -7,11 +7,11 @@ from time import gmtime, strftime
 import sys
 import json
 
-role = sys.argv[1]
-bucket = sys.argv[2]
-prefix = sys.argv[3]
-region =sys.argv[4]
-account = sys.argv[5]
+role = 'arn:aws:iam::237320763645:role/service-role/sagemaker-bring-your-algor-training-job'
+bucket = 'sagemaker/mars'
+prefix = 'sagemaker-batchdeploy'
+region ='ap-south-1'
+account = '237320763645'
 
 
 
