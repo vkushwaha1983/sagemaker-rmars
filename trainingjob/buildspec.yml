@@ -9,7 +9,6 @@ phases:
   build:
     commands:
       - echo "Running training.py"
-      - echo $role
       - python3 trainingjob/training.py
   post_build:
     commands:
