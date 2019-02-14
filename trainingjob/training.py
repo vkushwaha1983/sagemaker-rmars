@@ -76,7 +76,60 @@ if status == 'Failed':
     message = sm.describe_training_job(TrainingJobName=r_job)['FailureReason']
     print('Training failed with the following error: {}'.format(message))
     raise Exception('Training job failed')
+#################################
 
+r_hosting_container = {
+    'Image': '{}.dkr.ecr.{}.amazonaws.com/sagemakerrmars:latest'.format(account, region),
+    'ModelDataUrl': sm.describe_training_job(TrainingJobName=r_job)['ModelArtifacts']['S3ModelArtifacts']
+}
+
+create_model_response = sm.create_model(
+    ModelName=r_job,
+    ExecutionRoleArn=role,
+    PrimaryContainer=r_hosting_container)
+
+print(create_model_response['ModelArn'])
+
+##########################
+
+r_endpoint_config = 'DEMO-r-byo-config-' + time.strftime("%Y-%m-%d-%H-%M-%S", time.gmtime())
+print(r_endpoint_config)
+create_endpoint_config_response = sm.create_endpoint_config(
+    EndpointConfigName=r_endpoint_config,
+    ProductionVariants=[{
+        'InstanceType': 'ml.m4.xlarge',
+        'InitialInstanceCount': 1,
+        'ModelName': r_job,
+        'VariantName': 'AllTraffic'}])
+
+print("Endpoint Config Arn: " + create_endpoint_config_response['EndpointConfigArn'])
+
+
+##########################
+
+%%time
+
+r_endpoint = 'sagemaker-endpoint'
+print(r_endpoint)
+create_endpoint_response = sm.create_endpoint(
+    EndpointName=r_endpoint,
+    EndpointConfigName=r_endpoint_config)
+print(create_endpoint_response['EndpointArn'])
+
+resp = sm.describe_endpoint(EndpointName=r_endpoint)
+status = resp['EndpointStatus']
+print("Status: " + status)
+
+try:
+    sm.get_waiter('endpoint_in_service').wait(EndpointName=r_endpoint)
+finally:
+    resp = sm.describe_endpoint(EndpointName=r_endpoint)
+    status = resp['EndpointStatus']
+    print("Arn: " + resp['EndpointArn'])
+    print("Status: " + status)
+
+    if status != 'InService':
+        raise Exception('Endpoint creation did not succeed')
 
 end = time.time()
 print(end - start)
