@@ -7,14 +7,15 @@ from time import gmtime, strftime
 import sys
 import json
 
-role = 'sagemaker-bring-your-algor-training-job'
+# role = 'sagemaker-bring-your-algor-training-job'
+role ='arn:aws:iam::237320763645:role/service-role/AmazonSageMaker-ExecutionRole-20190128T145156'
 bucket = 'sagemaker/mars'
 prefix = 'sagemaker-batchdeploy'
 region ='ap-south-1'
 account = '237320763645'
 
 
-
+print role 
 start = time.time()
 
 
