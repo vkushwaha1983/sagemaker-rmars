@@ -107,7 +107,6 @@ print("Endpoint Config Arn: " + create_endpoint_config_response['EndpointConfigA
 
 ##########################
 
-%%time
 
 r_endpoint = 'sagemaker-endpoint'
 print(r_endpoint)
