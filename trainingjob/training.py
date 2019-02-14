@@ -9,8 +9,8 @@ import json
 
 # role = 'sagemaker-bring-your-algor-training-job'
 role ='arn:aws:iam::237320763645:role/service-role/AmazonSageMaker-ExecutionRole-20190128T145156'
-bucket = 'sagemaker/mars'
-prefix = 'sagemaker-batchdeploy'
+bucket = 'sagemaker-batchdeploy'
+prefix = 'sagemaker/mars'
 region ='ap-south-1'
 account = '237320763645'
 
