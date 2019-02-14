@@ -30,7 +30,7 @@ r_training_params = {
     "RoleArn": role,
     "TrainingJobName": r_job,
     "AlgorithmSpecification": {
-        "TrainingImage": '{}.dkr.ecr.{}.amazonaws.com/sagemaker-rmars:latest'.format(account, region),
+        "TrainingImage": '{}.dkr.ecr.{}.amazonaws.com/sagemakerrmars:latest'.format(account, region),
         "TrainingInputMode": "File"
     },
     "ResourceConfig": {
