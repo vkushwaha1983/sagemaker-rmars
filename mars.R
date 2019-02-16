@@ -13,7 +13,6 @@ library(mda)
 # Bring in library that allows parsing of JSON training parameters
 library(jsonlite)
 
-library(rjson)
 
 # Bring in library for prediction server
 library(plumber)
