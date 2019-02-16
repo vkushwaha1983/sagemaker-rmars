@@ -35,4 +35,4 @@ function(req) {
     scoring_X <- model.matrix(~., data, xlev=factor_levels)
 
     # Return prediction
-    return(paste(predict(mars_model, scoring_X, row.names=FALSE), collapse=','))}
+    return(paste(toJSON(predict(mars_model, scoring_X, row.names=FALSE), collapse=','))}
