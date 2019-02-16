@@ -9,7 +9,7 @@ phases:
   build:
     commands:
       - echo "Running training.py"
-      - python3 trainingjob/training.py
+      - python3 pri/training.py
   post_build:
     commands:
       - echo "Cleaning"
