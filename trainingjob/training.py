@@ -105,15 +105,21 @@ create_endpoint_config_response = sm.create_endpoint_config(
 print("Endpoint Config Arn: " + create_endpoint_config_response['EndpointConfigArn'])
 
 
-##########################
-
+#Check if endpoint needs to be created or updated
 
 r_endpoint = 'sagemaker-endpoint'
 print(r_endpoint)
-create_endpoint_response = sm.create_endpoint(
-    EndpointName=r_endpoint,
-    EndpointConfigName=r_endpoint_config)
-print(create_endpoint_response['EndpointArn'])
+
+endpointname =sm.list_endpoints(NameContains=r_endpoint)
+
+if endpointname['Endpoints']==[]:
+    create_endpoint_response = sm.create_endpoint(EndpointName=r_endpoint,EndpointConfigName=r_endpoint_config)
+    print(create_endpoint_response['EndpointArn'])
+elif endpointname['Endpoints'][0]['EndpointStatus']=='InService': 
+     sm.update_endpoint(EndpointName=r_endpoint,EndpointConfigName=r_endpoint_config)
+else :
+    print(r_endpoint)
+
 
 resp = sm.describe_endpoint(EndpointName=r_endpoint)
 status = resp['EndpointStatus']
