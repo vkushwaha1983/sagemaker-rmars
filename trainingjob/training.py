@@ -18,7 +18,9 @@ account = '237320763645'
 print(role)
 start = time.time()
 
-
+train_file = 'iris.csv'
+boto3.Session().resource('s3').Bucket(bucket).Object(os.path.join(prefix, 'train', train_file)).upload_file(train_file)
+ 
         
 s3 = boto3.client('s3')
 # create unique job name 
